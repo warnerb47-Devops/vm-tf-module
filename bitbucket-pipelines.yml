@@ -3,33 +3,33 @@
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
 
-image: atlassian/default-image:3
+image: hashicorp/terraform:1.1.4
 
 pipelines:
   default:
     - parallel:
       - step:
-          name: 'Build and Test'
+          name: 'Download dependencies'
           script:
-            - echo "Your build and test goes here..."
+            - terrform init
       - step:
-          name: 'Lint'
+          name: 'Get config file'
           script:
-            - echo "Your linting goes here..."
+            - echo "Getting config file..."
       - step:
-          name: 'Security scan'
+          name: 'Test'
           script:
-            - echo "Your security scan goes here..."
+            - echo "Your Test goes here..."
 
     # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
     - step:
-        name: 'Deployment to Staging'
+        name: 'Plan changes'
         deployment: staging
         script:
-          - echo "Your deployment to staging script goes here..."
+          - terraform plan
     - step:
-        name: 'Deployment to Production'
+        name: 'Apply changes'
         deployment: production
         trigger: 'manual'
         script:
-          - echo "Your deployment to production script goes here..."
+          - terraform apply
