@@ -27,10 +27,10 @@ pipelines:
         name: 'Plan changes'
         deployment: staging
         script:
-          - echo "terraform plan ..."
+          - terraform plan
     - step:
         name: 'Apply changes'
         deployment: production
         trigger: 'manual'
         script:
-          - echo "terraform apply ..."
+          - terraform apply
