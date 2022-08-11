@@ -3,20 +3,16 @@
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
 
-image: atlassian/default-image:3
+image: hashicorp/terraform:1.1.4
 
 pipelines:
   default:
     - parallel:
       - step:
-          image: hashicorp/terraform:1.1.4
+          # image: hashicorp/terraform:1.1.4
           name: 'Download dependencies'
           script:
-            - terrform init
-          # caches:
-          #   - docker
-          # artifacts:
-          #     - ./**
+            - terraform init
       - step:
           name: 'Get config file'
           script:
