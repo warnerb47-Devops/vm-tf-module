@@ -29,6 +29,7 @@ pipelines:
         deployment: staging
         script:
           - cd AWS
+          - terraform init
           - terraform plan
     - step:
         name: 'Apply changes'
@@ -36,4 +37,5 @@ pipelines:
         trigger: 'manual'
         script:
           - cd AWS
-          - terraform apply
+          - terraform init
+          - terraform apply -auto-approve
