@@ -1,14 +1,11 @@
-FROM python:3.7.13-buster
-
-# configure terraform
-RUN apt update && apt install -y gnupg software-properties-common curl
-RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
-RUN apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-RUN apt update && apt install terraform
+FROM hashicorp/terraform:1.1.4
 WORKDIR /root
 COPY . .
-CMD [ "/bin/bash" ]
+WORKDIR /root/AWS
+RUN terraform init
+# CMD [ "/bin/sh" ]
 
 # docker build -t vm-tf-module .
-# docker run -d -t --name vm-tf-module vm-tf-module
-# docker exec -ti vm-tf-module bash
+# docker run -d -ti --name vm-tf-module vm-tf-module init
+# docker exec -ti vm-tf-module apply
+# docker run -d -t --name vm-tf-module --entrypoint /bin/sh vm-tf-module
