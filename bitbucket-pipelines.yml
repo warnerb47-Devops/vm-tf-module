@@ -14,7 +14,7 @@ pipelines:
           script:
             - terrform init
           caches:
-            - dependencies
+            - docker
           artifacts:
               - ./**
       - step:
@@ -31,14 +31,14 @@ pipelines:
         name: 'Plan changes'
         deployment: staging
         caches:
-          - dependencies
+          - docker
         script:
           - terraform plan
     - step:
         name: 'Apply changes'
         deployment: production
         caches:
-          - dependencies
+          - docker
         trigger: 'manual'
         script:
           - terraform apply
