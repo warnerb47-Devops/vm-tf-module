@@ -8,7 +8,7 @@ access:
 ansible:
   public_key: your_ansible_public_key # optionnal
 
-ec2_instances:
+ec2_instances: # list of instances to create
   - {
       owner: 136693071363, # aws image owner id
       platform: Debian,
