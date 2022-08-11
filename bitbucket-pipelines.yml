@@ -12,25 +12,27 @@ pipelines:
           # image: hashicorp/terraform:1.1.4
           name: 'Download dependencies'
           script:
+            - ls
+            - pwd
             - terraform init
-      - step:
-          name: 'Get config file'
-          script:
-            - echo "Getting config file..."
-      - step:
-          name: 'Test'
-          script:
-            - echo "Your Test goes here..."
+      # - step:
+      #     name: 'Get config file'
+      #     script:
+      #       - echo "Getting config file..."
+      # - step:
+      #     name: 'Test'
+      #     script:
+      #       - echo "Your Test goes here..."
 
     # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
-    - step:
-        name: 'Plan changes'
-        deployment: staging
-        script:
-          - terraform plan
-    - step:
-        name: 'Apply changes'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - terraform apply
+    # - step:
+    #     name: 'Plan changes'
+    #     deployment: staging
+    #     script:
+    #       - terraform plan
+    # - step:
+    #     name: 'Apply changes'
+    #     deployment: production
+    #     trigger: 'manual'
+    #     script:
+    #       - terraform apply
