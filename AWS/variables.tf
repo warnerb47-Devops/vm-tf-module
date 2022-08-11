@@ -4,14 +4,12 @@ variable "access" {
     access_key = string
     secret_key = string
     key_name   = string
-    vpc_id     = string
   })
   default = {
     region     = "value"
     access_key = "value"
     secret_key = "value"
     key_name   = "value"
-    vpc_id     = "value"
   }
 }
 

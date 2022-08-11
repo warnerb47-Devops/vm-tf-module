@@ -1,0 +1,42 @@
+---
+access:
+  region: your_aws_region
+  access_key: your_aws_access_key
+  secret_key: your_aws_secret_key
+  key_name: your_aws_ssh
+
+ansible:
+  public_key: your_ansible_public_key # optionnal
+
+ec2_instances:
+  - {
+      owner: 136693071363, # aws image owner id
+      platform: Debian,
+      architecture: x86_64,
+      virtualization-type: hvm,
+      name: debian-10-amd64-20210329-591, # aws image name
+      instance_type: t2.micro,
+      tag: master, # tag your ec2
+      security_group: ['allow_ssh'] # specify security group already created in aws
+    }
+  - {
+      owner: 136693071363,
+      platform: Debian,
+      architecture: x86_64,
+      virtualization-type: hvm,
+      name: debian-10-amd64-20210329-591,
+      instance_type: t2.micro,
+      tag: worker1,
+      security_group: ['allow_ssh']
+    }
+  - {
+      owner: 136693071363,
+      platform: Debian,
+      architecture: x86_64,
+      virtualization-type: hvm,
+      name: debian-10-amd64-20210329-591,
+      instance_type: t2.micro,
+      tag: worker2,
+      security_group: ['allow_ssh']
+    }
+
