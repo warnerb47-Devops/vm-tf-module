@@ -13,10 +13,10 @@ pipelines:
           name: 'Download dependencies'
           script:
             - terrform init
-          caches:
-            - docker
-          artifacts:
-              - ./**
+          # caches:
+          #   - docker
+          # artifacts:
+          #     - ./**
       - step:
           name: 'Get config file'
           script:
@@ -30,15 +30,11 @@ pipelines:
     - step:
         name: 'Plan changes'
         deployment: staging
-        caches:
-          - docker
         script:
-          - terraform plan
+          - echo "terraform plan ..."
     - step:
         name: 'Apply changes'
         deployment: production
-        caches:
-          - docker
         trigger: 'manual'
         script:
-          - terraform apply
+          - echo "terraform apply ..."
