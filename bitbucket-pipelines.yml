@@ -12,7 +12,9 @@ pipelines:
           name: 'Get config file'
           script:
             - git clone git@bitbucket.org:warnerb47/configuration.git
-            - ls
+            - cp configuration/aws/aws-vm-config.yml ./aws/config.yml
+            - terraform init
+            - terraform plan
       - step:
           name: 'Test'
           script:
