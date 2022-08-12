@@ -46,7 +46,6 @@ def update_ansible_config():
 def main():
     hosts = extract_hosts()
     generate_inventory(hosts)
-    update_ansible_config()
 
 main()
 
