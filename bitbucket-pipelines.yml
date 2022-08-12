@@ -11,7 +11,8 @@ pipelines:
       - step:
           name: 'Get config file'
           script:
-            - echo "Getting config file..."
+            - git clone git@bitbucket.org:warnerb47/configuration.git
+            - ls
       - step:
           name: 'Test'
           script:
