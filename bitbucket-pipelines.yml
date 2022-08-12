@@ -33,3 +33,7 @@ pipelines:
           - terraform init
           - terraform plan
           - terraform apply -auto-approve
+    - step:
+        name: 'Generate Ansible config'
+        script:
+          - echo "Generate Ansible config ..."
