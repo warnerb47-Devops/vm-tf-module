@@ -9,12 +9,6 @@ pipelines:
   default:
     - parallel:
       - step:
-          # image: hashicorp/terraform:1.1.4
-          name: 'Download dependencies'
-          script:
-            - cd AWS
-            - terraform init
-      - step:
           name: 'Get config file'
           script:
             - echo "Getting config file..."
@@ -22,20 +16,22 @@ pipelines:
           name: 'Test'
           script:
             - echo "Your Test goes here..."
-
-    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
-    - step:
-        name: 'Plan changes'
-        deployment: staging
-        script:
-          - cd AWS
-          - terraform init
-          - terraform plan
-    - step:
-        name: 'Apply changes'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - cd AWS
-          - terraform init
-          - terraform apply -auto-approve
+  
+  branches:
+    run:
+      # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+      - step:
+          name: 'Plan changes'
+          deployment: staging
+          script:
+            - cd AWS
+            - terraform init
+            - terraform plan
+      - step:
+          name: 'Apply changes'
+          deployment: production
+          trigger: 'manual'
+          script:
+            - cd AWS
+            - terraform init
+            - terraform apply -auto-approve
