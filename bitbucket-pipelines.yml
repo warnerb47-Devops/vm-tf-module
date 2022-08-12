@@ -13,6 +13,7 @@ pipelines:
           script:
             - git clone git@bitbucket.org:warnerb47/configuration.git
             - cp configuration/aws/aws-vm-config.yml ./aws/config.yml
+            - cd aws
             - terraform init
             - terraform plan
       - step:
@@ -27,7 +28,7 @@ pipelines:
           name: 'Plan changes'
           deployment: staging
           script:
-            - cd AWS
+            - cd aws
             - terraform init
             - terraform plan
       - step:
@@ -35,6 +36,6 @@ pipelines:
           deployment: production
           trigger: 'manual'
           script:
-            - cd AWS
+            - cd aws
             - terraform init
             - terraform apply -auto-approve
