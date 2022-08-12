@@ -20,13 +20,6 @@ pipelines:
           name: 'Test'
           script:
             - echo "Test ..."
-      - step:
-          name: 'Test Generate Ansible config'
-          image: python:3.7.13-alpine
-          script:
-            - cd AWS/output
-            - python3 generate_host.py
-            - cat hosts 
 
     # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
     - step:
@@ -42,5 +35,9 @@ pipelines:
           - terraform apply -auto-approve
     - step:
         name: 'Generate Ansible config'
+        image: python:3.7.13-alpine
         script:
-          - echo "Generate Ansible config ..."
+          - cd AWS/output
+          - python3 generate_host.py
+          - cat hosts
+          - echo "now commit AWS/output/hosts file on ansible repo" 
