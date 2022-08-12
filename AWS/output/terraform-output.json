@@ -1,0 +1,91 @@
+{
+  "ec2_instances_created": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "0": [
+          "object",
+          {
+            "public_dns": "string",
+            "public_ip": "string",
+            "security_groups": [
+              "set",
+              "string"
+            ],
+            "tags": [
+              "map",
+              "string"
+            ]
+          }
+        ],
+        "1": [
+          "object",
+          {
+            "public_dns": "string",
+            "public_ip": "string",
+            "security_groups": [
+              "set",
+              "string"
+            ],
+            "tags": [
+              "map",
+              "string"
+            ]
+          }
+        ],
+        "2": [
+          "object",
+          {
+            "public_dns": "string",
+            "public_ip": "string",
+            "security_groups": [
+              "set",
+              "string"
+            ],
+            "tags": [
+              "map",
+              "string"
+            ]
+          }
+        ]
+      }
+    ],
+    "value": {
+      "0": {
+        "public_dns": "ec2-3-128-160-212.us-east-2.compute.amazonaws.com",
+        "public_ip": "3.128.160.212",
+        "security_groups": [
+          "allow_applications",
+          "allow_ssh",
+          "swarm_master"
+        ],
+        "tags": {
+          "Name": "master"
+        }
+      },
+      "1": {
+        "public_dns": "ec2-3-19-238-79.us-east-2.compute.amazonaws.com",
+        "public_ip": "3.19.238.79",
+        "security_groups": [
+          "allow_applications",
+          "allow_ssh"
+        ],
+        "tags": {
+          "Name": "worker1"
+        }
+      },
+      "2": {
+        "public_dns": "ec2-3-134-253-192.us-east-2.compute.amazonaws.com",
+        "public_ip": "3.134.253.192",
+        "security_groups": [
+          "allow_applications",
+          "allow_ssh"
+        ],
+        "tags": {
+          "Name": "worker2"
+        }
+      }
+    }
+  }
+}
