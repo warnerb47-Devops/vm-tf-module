@@ -33,7 +33,7 @@ variable "ec2_instances" {
     instance_type       = string
     tag                 = string
     group               = string
-    security_group      = ssstring
+    security_group      = string
   }))
   default = [
     {
