@@ -32,7 +32,8 @@ variable "ec2_instances" {
     name                = string
     instance_type       = string
     tag                 = string
-    security_group      = string
+    group               = string
+    security_group      = ssstring
   }))
   default = [
     {
@@ -43,6 +44,7 @@ variable "ec2_instances" {
       name                = "value"
       instance_type       = "value"
       tag                 = "value"
+      group               = "value"
       security_group      = "value"
     }
   ]
