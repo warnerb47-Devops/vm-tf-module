@@ -21,7 +21,7 @@ def extaction():
         })
     return hosts
 
-def generate_inventory(hosts, file_name='hosts.ini', ansible_user='admin', master_ip='master_ip', docker_swarm_port='2377'):
+def generate_inventory(hosts, file_name='hosts', ansible_user='admin', master_ip='master_ip', docker_swarm_port='2377'):
     with open(file_name, "w") as hosts_file:
         for key in hosts:
             hosts_file.write("[{group_name}]\n".format(group_name=key))
