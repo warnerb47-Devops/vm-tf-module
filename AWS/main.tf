@@ -73,6 +73,7 @@ resource "aws_instance" "ec2_instances" {
   security_groups = local.input.ec2_instances[count.index].security_group
   tags = {
     Name = local.input.ec2_instances[count.index].tag
+    group = local.input.ec2_instances[count.index].group
   }
 }
 
