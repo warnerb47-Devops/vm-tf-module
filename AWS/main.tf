@@ -28,6 +28,41 @@ provider "aws" {
 }
 
 
+data "aws_vpc" "selected" {
+  state = "available"
+  default = true
+}
+
+resource "aws_security_group" "public" {
+  count = length(local.input.security_groups)
+  name        = local.input.security_groups[count.index].name
+  description = local.input.security_groups[count.index].description
+  vpc_id      = data.aws_vpc.selected.id
+
+
+  dynamic "ingress" {
+    for_each = local.input.security_groups[count.index].rules
+    content {
+      from_port        = ingress.value["port"]
+      to_port          = ingress.value["port"]
+      protocol         = ingress.value["protocol"]
+      cidr_blocks       = ["0.0.0.0/0"]
+    }
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    ManagedBy   = "terraform"
+  }
+  # tags = { for index, tag in local.input.security_groups[0].tags : (tag.key) => tag.value}
+}
+
 
 # filter image 
 data "aws_ami" "filtred_amis" {
@@ -75,6 +110,10 @@ resource "aws_instance" "ec2_instances" {
     Name = local.input.ec2_instances[count.index].tag
     group = local.input.ec2_instances[count.index].group
   }
+
+  depends_on = [
+    aws_security_group.public
+  ]
 }
 
 # print result 
