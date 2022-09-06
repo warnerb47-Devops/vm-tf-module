@@ -8,6 +8,17 @@ access:
 ansible:
   public_key: your_ansible_public_key # optionnal
 
+security_groups:
+  - {
+      name: common,
+      description: "manage by terraform",
+      rules: [
+        {protocol: tcp, port: 22},
+        {protocol: tcp, port: 80},
+        {protocol: tcp, port: 443}
+      ]
+    }
+
 ec2_instances: # list of instances to create
   - {
       owner: 136693071363, # aws image owner id
