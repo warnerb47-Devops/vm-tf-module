@@ -103,7 +103,7 @@ data "aws_key_pair" "access_key_name" {
 # create volumes
 resource "aws_ebs_volume" "volumes" {
   count           = length(local.input.ec2_instances)
-  availability_zone = local.input.access.region
+  availability_zone = local.input.volume.zone
   size              = local.input.volume.size
 
   tags = {

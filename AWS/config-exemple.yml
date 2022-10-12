@@ -8,6 +8,7 @@ access:
 volume:
   size: 50
   device_name: /dev/xvda
+  zone: us-west-1c
 
 security_groups:
   - {

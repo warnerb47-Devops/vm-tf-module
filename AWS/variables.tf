@@ -17,10 +17,12 @@ variable "volume" {
   type = object({
     size     = string
     device_name     = string
+    zone     = string
   })
   default = {
     size     = "value"
     device_name     = "value"
+    zone     = "value"
   }
 }
 
