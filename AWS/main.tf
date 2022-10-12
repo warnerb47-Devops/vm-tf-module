@@ -128,6 +128,7 @@ resource "aws_instance" "ec2_instances" {
   instance_type   = local.input.ec2_instances[count.index].instance_type
   key_name        = data.aws_key_pair.access_key_name.key_name
   security_groups = local.input.ec2_instances[count.index].security_group
+  availability_zone = local.input.volume.zone
   tags = {
     Name = local.input.ec2_instances[count.index].tag
     group = local.input.ec2_instances[count.index].group
