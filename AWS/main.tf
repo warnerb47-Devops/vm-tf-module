@@ -107,6 +107,7 @@ resource "aws_volume_attachment" "ebs_att" {
   volume_id   = aws_ebs_volume.volumes[count.index].id
   instance_id = aws_instance.ec2_instances[count.index].id
   # skip_destroy = true
+  stop_instance_before_detaching = true
 }
 
 # create volumes
