@@ -13,14 +13,17 @@ variable "access" {
   }
 }
 
-variable "ansible" {
+variable "volume" {
   type = object({
-    public_key = string
+    size     = string
+    device_name     = string
   })
   default = {
-    public_key = "value"
+    size     = "value"
+    device_name     = "value"
   }
 }
+
 
 
 variable "ec2_instances" {

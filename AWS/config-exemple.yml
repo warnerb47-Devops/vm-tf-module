@@ -5,8 +5,9 @@ access:
   secret_key: your_aws_secret_key
   key_name: your_aws_ssh
 
-ansible:
-  public_key: your_ansible_public_key # optionnal
+volume:
+  size: 50
+  device_name: /dev/xvda
 
 security_groups:
   - {

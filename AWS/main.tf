@@ -99,6 +99,18 @@ data "aws_key_pair" "access_key_name" {
   key_name = local.input.access.key_name
 }
 
+
+# create volumes
+resource "aws_ebs_volume" "volumes" {
+  count           = length(local.input.ec2_instances)
+  availability_zone = local.input.access.region
+  size              = local.input.volume.size
+
+  tags = {
+    Name = local.input.ec2_instances[count.index].tag
+  }
+}
+
 # create ec2 instances
 resource "aws_instance" "ec2_instances" {
   count           = length(data.aws_ami.filtred_amis)
@@ -114,6 +126,14 @@ resource "aws_instance" "ec2_instances" {
   depends_on = [
     aws_security_group.public
   ]
+}
+
+# attache volumes
+resource "aws_volume_attachment" "ebs_att" {
+  count           = length(local.input.ec2_instances)
+  device_name = local.input.volume.device_name
+  volume_id   = aws_ebs_volume.volumes[count.index].id
+  instance_id = aws_instance.ec2_instances[count.index].id
 }
 
 # print result 
