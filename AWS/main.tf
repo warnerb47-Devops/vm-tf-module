@@ -100,6 +100,15 @@ data "aws_key_pair" "access_key_name" {
 }
 
 
+# attache volumes
+resource "aws_volume_attachment" "ebs_att" {
+  count           = length(local.input.ec2_instances)
+  device_name = local.input.volume.device_name
+  volume_id   = aws_ebs_volume.volumes[count.index].id
+  instance_id = aws_instance.ec2_instances[count.index].id
+  # skip_destroy = true
+}
+
 # create volumes
 resource "aws_ebs_volume" "volumes" {
   count           = length(local.input.ec2_instances)
@@ -128,13 +137,6 @@ resource "aws_instance" "ec2_instances" {
   ]
 }
 
-# attache volumes
-resource "aws_volume_attachment" "ebs_att" {
-  count           = length(local.input.ec2_instances)
-  device_name = local.input.volume.device_name
-  volume_id   = aws_ebs_volume.volumes[count.index].id
-  instance_id = aws_instance.ec2_instances[count.index].id
-}
 
 # print result 
 output "ec2_instances_created" {
