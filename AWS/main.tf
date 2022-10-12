@@ -100,27 +100,6 @@ data "aws_key_pair" "access_key_name" {
 }
 
 
-# attache volumes
-# resource "aws_volume_attachment" "ebs_att" {
-#   count           = length(local.input.ec2_instances)
-#   device_name = local.input.volume.device_name
-#   volume_id   = aws_ebs_volume.volumes[count.index].id
-#   instance_id = aws_instance.ec2_instances[count.index].id
-#   # skip_destroy = true
-#   stop_instance_before_detaching = true
-# }
-
-# create volumes
-# resource "aws_ebs_volume" "volumes" {
-#   count           = length(local.input.ec2_instances)
-#   availability_zone = local.input.volume.zone
-#   size              = local.input.volume.size
-
-#   tags = {
-#     Name = local.input.ec2_instances[count.index].tag
-#   }
-# }
-
 # create ec2 instances
 resource "aws_instance" "ec2_instances" {
   count           = length(data.aws_ami.filtred_amis)
@@ -131,8 +110,8 @@ resource "aws_instance" "ec2_instances" {
   # availability_zone = local.input.volume.zone
 
   ebs_block_device{
-    device_name = local.input.volume.device_name
-    volume_size = local.input.volume.size
+    device_name = local.input.ec2_instances[count.index].volume.device_name
+    volume_size = local.input.ec2_instances[count.index].volume.size
     tags = {
       Name = local.input.ec2_instances[count.index].tag
     }

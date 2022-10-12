@@ -38,7 +38,12 @@ variable "ec2_instances" {
     instance_type       = string
     tag                 = string
     group               = string
-    security_group      = string
+    security_group      = list(string)
+    volume = object({
+      size     = string
+      device_name     = string
+      zone     = string
+    })
   }))
   default = [
     {
@@ -50,7 +55,12 @@ variable "ec2_instances" {
       instance_type       = "value"
       tag                 = "value"
       group               = "value"
-      security_group      = "value"
+      security_group      = []
+      volume = {
+        size     = "value"
+        device_name     = "value"
+        zone     = "value"
+      }
     }
   ]
 }
