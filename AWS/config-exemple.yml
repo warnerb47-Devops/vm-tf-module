@@ -5,11 +5,6 @@ access:
   secret_key: your_aws_secret_key
   key_name: your_aws_ssh
 
-volume:
-  size: 50
-  device_name: /dev/xvda
-  zone: us-west-1c
-
 security_groups:
   - {
       name: common,
@@ -30,7 +25,11 @@ ec2_instances: # list of instances to create
       name: debian-10-amd64-20210329-591, # aws image name
       instance_type: t2.micro,
       tag: master, # tag your ec2
-      security_group: ['allow_ssh'] # specify security group already created in aws
+      security_group: ['allow_ssh'], # specify security group already created in aws
+      volume: { # set storage to 8 GiB
+        size: 8,
+        device_name: /dev/xvda
+      }
     }
   - {
       owner: 136693071363,
@@ -40,7 +39,11 @@ ec2_instances: # list of instances to create
       name: debian-10-amd64-20210329-591,
       instance_type: t2.micro,
       tag: worker1,
-      security_group: ['allow_ssh']
+      security_group: ['allow_ssh'],
+      volume: {
+        size: 8,
+        device_name: /dev/xvda
+      }
     }
   - {
       owner: 136693071363,
@@ -50,6 +53,10 @@ ec2_instances: # list of instances to create
       name: debian-10-amd64-20210329-591,
       instance_type: t2.micro,
       tag: worker2,
-      security_group: ['allow_ssh']
+      security_group: ['allow_ssh'],
+      volume: {
+        size: 8,
+        device_name: /dev/xvda
+      }
     }
 
