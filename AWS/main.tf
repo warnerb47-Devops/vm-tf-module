@@ -101,25 +101,25 @@ data "aws_key_pair" "access_key_name" {
 
 
 # attache volumes
-resource "aws_volume_attachment" "ebs_att" {
-  count           = length(local.input.ec2_instances)
-  device_name = local.input.volume.device_name
-  volume_id   = aws_ebs_volume.volumes[count.index].id
-  instance_id = aws_instance.ec2_instances[count.index].id
-  # skip_destroy = true
-  stop_instance_before_detaching = true
-}
+# resource "aws_volume_attachment" "ebs_att" {
+#   count           = length(local.input.ec2_instances)
+#   device_name = local.input.volume.device_name
+#   volume_id   = aws_ebs_volume.volumes[count.index].id
+#   instance_id = aws_instance.ec2_instances[count.index].id
+#   # skip_destroy = true
+#   stop_instance_before_detaching = true
+# }
 
 # create volumes
-resource "aws_ebs_volume" "volumes" {
-  count           = length(local.input.ec2_instances)
-  availability_zone = local.input.volume.zone
-  size              = local.input.volume.size
+# resource "aws_ebs_volume" "volumes" {
+#   count           = length(local.input.ec2_instances)
+#   availability_zone = local.input.volume.zone
+#   size              = local.input.volume.size
 
-  tags = {
-    Name = local.input.ec2_instances[count.index].tag
-  }
-}
+#   tags = {
+#     Name = local.input.ec2_instances[count.index].tag
+#   }
+# }
 
 # create ec2 instances
 resource "aws_instance" "ec2_instances" {
@@ -128,7 +128,15 @@ resource "aws_instance" "ec2_instances" {
   instance_type   = local.input.ec2_instances[count.index].instance_type
   key_name        = data.aws_key_pair.access_key_name.key_name
   security_groups = local.input.ec2_instances[count.index].security_group
-  availability_zone = local.input.volume.zone
+  # availability_zone = local.input.volume.zone
+
+  ebs_block_device{
+    device_name = local.input.volume.device_name
+    volume_size = local.input.volume.size
+    tags = {
+      Name = local.input.ec2_instances[count.index].tag
+    }
+  }
   tags = {
     Name = local.input.ec2_instances[count.index].tag
     group = local.input.ec2_instances[count.index].group
