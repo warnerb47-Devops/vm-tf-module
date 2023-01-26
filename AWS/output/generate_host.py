@@ -1,4 +1,3 @@
-
 def extaction():
     import json
     with open('terraform-output.json') as json_file:
